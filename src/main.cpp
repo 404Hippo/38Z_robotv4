@@ -94,10 +94,8 @@ void initialize() {
     Auton("red left elim", redleftelim),
     Auton("red right elim", redrightelim),
     Auton("skills", skills),
-    
-    /*
-    Auton("test", test),
 
+    /*
     Auton("drive 48", drive_48),
     Auton("drive 96", drive_96),
     Auton("drive back 48", driveBack_48),
@@ -107,6 +105,7 @@ void initialize() {
     Auton("turn 360", turn_360),
     Auton("turn back", turnBack),
     */
+    
   });
 
   /*
