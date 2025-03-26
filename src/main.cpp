@@ -38,10 +38,12 @@ void nextState() {
 }
 
 void wallstakeControl() {
+while(true){
   if (wallstakePID) {
     double kp = 1.4;
     wallstake.move(kp * (target - (rotationsensor.get_position()/100.0)));
 
+    }
   }
 }
 
@@ -338,9 +340,9 @@ void opcontrol() {
       wallstakePID = false;
       setWallstake(-127);
     }
-    else{
+    else if (!wallstakePID){
       setWallstake(0);
-      wallstake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+      wallstake.set_brake_mode(MOTOR_BRAKE_HOLD);
     }
 
     // clamp toggle single button
@@ -353,7 +355,7 @@ void opcontrol() {
       doinker.toggle();
     }
 
-    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+    if (master.get_digital_new_press(DIGITAL_DOWN)) {
       wallstakePID = true;
       nextState();
     }
