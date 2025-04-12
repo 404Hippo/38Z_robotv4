@@ -24,7 +24,7 @@ ez::Drive chassis(
 // ez::tracking_wheel vert_tracker(9, 2.75, 4.0);   // This tracking wheel is parallel to the drive wheels
 
 const int numStates = 2;
-int states[numStates] = {0, 30};
+int states[numStates] = {0, 35};
 int currState = 0;
 int target = 0;
 bool wallstakePID = false;
@@ -40,7 +40,7 @@ void nextState() {
 void wallstakeControl() {
 
   if (wallstakePID) {
-    double kp = 1.4;
+    double kp = 1.3;
     wallstake.move(kp * (target - (rotationsensor.get_position()/100.0)));
 
     }
