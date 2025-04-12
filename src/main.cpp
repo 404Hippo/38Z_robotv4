@@ -38,13 +38,12 @@ void nextState() {
 }
 
 void wallstakeControl() {
-while(true){
+
   if (wallstakePID) {
     double kp = 1.4;
     wallstake.move(kp * (target - (rotationsensor.get_position()/100.0)));
 
     }
-  }
 }
 
 
@@ -328,7 +327,6 @@ void opcontrol() {
     
     // control the intake and conveyor
     setIntake((master.get_digital(DIGITAL_R1) - master.get_digital(DIGITAL_R2)) * 127);
-    setConveyor((master.get_digital(DIGITAL_R1) - master.get_digital(DIGITAL_R2)) * 127);
 
     // control the wallstake
     
@@ -341,8 +339,8 @@ void opcontrol() {
       setWallstake(-127);
     }
     else if (!wallstakePID){
-      setWallstake(0);
       wallstake.set_brake_mode(MOTOR_BRAKE_HOLD);
+      setWallstake(0);
     }
 
     // clamp toggle single button

@@ -74,7 +74,6 @@ void blueAWP(){
   chassis.pid_turn_set(-140_deg, TURN_SPEED);
   chassis.pid_wait();
   setIntake(127);
-  setConveyor(127);
   chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(300, TURN_SPEED);
@@ -88,7 +87,7 @@ void blueAWP(){
   pros::delay(1000);
   clamp1.retract();
   chassis.pid_wait();
-  setConveyor(0);
+  setIntake(0);
   chassis.pid_turn_set(-50_deg, TURN_SPEED);
   chassis.pid_wait();
   chassis.pid_drive_set(-15_in, DRIVE_SPEED, true);
@@ -97,7 +96,7 @@ void blueAWP(){
   pros::delay(450);
   clamp1.extend();
   chassis.pid_wait();
-  setConveyor(127);
+  setIntake(127);
   chassis.pid_turn_set(30_deg, TURN_SPEED);
   chassis.pid_wait();
   chassis.pid_drive_set(25_in, DRIVE_SPEED, true);
@@ -132,10 +131,9 @@ void redAWP(){
   chassis.pid_turn_set(140_deg, TURN_SPEED);
   chassis.pid_wait();
   setIntake(127);
-  setConveyor(127);
   chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
   chassis.pid_wait();
-  chassis.pid_turn_set(-300, TURN_SPEED);
+  chassis.pid_turn_set(-300_deg, TURN_SPEED);
   chassis.pid_wait();
   chassis.pid_drive_set(22_in, DRIVE_SPEED, true);
   chassis.pid_wait();
@@ -145,7 +143,7 @@ void redAWP(){
   pros::delay(1000);
   clamp1.retract();
   chassis.pid_wait();
-  setConveyor(0);
+  setIntake(0);
   pros::delay(600);
   chassis.pid_turn_set(50_deg, TURN_SPEED);
   chassis.pid_wait();
@@ -155,7 +153,7 @@ void redAWP(){
   pros::delay(450);
   clamp1.extend();
   chassis.pid_wait();
-  setConveyor(127);
+  setIntake(127);
   chassis.pid_turn_set(-35_deg, TURN_SPEED);
   chassis.pid_wait();
   chassis.pid_drive_set(25_in, DRIVE_SPEED, true);
@@ -192,24 +190,21 @@ void blueleft(){
   pros::delay(1000);
   clamp1.extend();
   chassis.pid_wait();
-  setConveyor(127);
+  setIntake(127);
   pros::delay(500);
   setWallstake(0);
-  chassis.pid_swing_set(ez::RIGHT_SWING, -180_deg, SWING_SPEED, 64);
+  chassis.pid_swing_set(ez::RIGHT_SWING, 180_deg, SWING_SPEED, 55);
   pros::delay(700);
-  setConveyor(0);
+  setIntake(0);
   chassis.pid_wait();
-  setIntake(127);
-  chassis.pid_drive_set(20_in, 127, false);
-  pros::delay(1000);
-  chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
+  chassis.pid_turn_set(90_deg, TURN_SPEED);
   chassis.pid_wait();
-  setConveyor(127);
-  chassis.pid_turn_set(45_deg, TURN_SPEED);
+  clamp1.retract();
+  chassis.pid_drive_set(15_in, DRIVE_SPEED, true);
   chassis.pid_wait();
-  chassis.pid_drive_set(45_in, DRIVE_SPEED, true);
-  pros::delay(1000);
-  setWallstake(127);
+  chassis.pid_turn_set(167_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-30_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
 }
@@ -231,26 +226,77 @@ void blueright(){
   pros::delay(400);
   clamp1.extend();
   chassis.pid_wait();
-  chassis.pid_turn_set(-140_deg, TURN_SPEED);
-  chassis.pid_wait();
   setIntake(127);
-  setConveyor(127);
-  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
+  setIntake(127);
+  chassis.pid_turn_set(-210_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(-30_in, DRIVE_SPEED, true);
+  chassis.pid_swing_set(ez::LEFT_SWING, -140_deg, SWING_SPEED, 47);
   chassis.pid_wait();
-  chassis.pid_turn_set(-225_deg, TURN_SPEED);
+  chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
   chassis.pid_wait();
-  chassis.pid_swing_set(ez::LEFT_SWING, -140_deg, SWING_SPEED, 32);
+  chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  setIntake(0);
+  chassis.pid_swing_set(ez::LEFT_SWING, -45_deg, SWING_SPEED, 5);
+  chassis.pid_wait();
+  chassis.pid_turn_set(-10_deg, TURN_SPEED);
   chassis.pid_wait();
   chassis.pid_drive_set(20_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  setIntake(127);
+  chassis.pid_swing_set(ez::LEFT_SWING, 30_deg, SWING_SPEED, 70);
+  pros::delay(100);
+  chassis.pid_wait();
+  chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(190_deg, TURN_SPEED);
+  setIntake(0);
   chassis.pid_wait();
 }
 
 void redleft(){
   setWallstake(127);
-  pros::delay(1000);
+  pros::delay(500);
   setWallstake(0);
+  chassis.pid_drive_set(-3_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  setWallstake(-127);
+  pros::delay(100);
+  chassis.pid_turn_set(43_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-25_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  setWallstake(0);
+  chassis.pid_drive_set(-10_in, 35, true);
+  pros::delay(400);
+  clamp1.extend();
+  chassis.pid_wait();
+  setIntake(127);
+  chassis.pid_turn_set(210_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_swing_set(ez::RIGHT_SWING, 140_deg, SWING_SPEED, 47);
+  chassis.pid_wait();
+  chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_swing_set(ez::RIGHT_SWING, 45_deg, SWING_SPEED, 5);
+  chassis.pid_wait();
+  chassis.pid_turn_set(10_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(20_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  setIntake(0);
+  chassis.pid_swing_set(ez::RIGHT_SWING, -30_deg, SWING_SPEED, 70);
+  pros::delay(100);
+  chassis.pid_wait();
+  chassis.pid_drive_set(50_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(-180_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  
+
 
 }
 
@@ -276,16 +322,18 @@ void redright(){
   chassis.pid_turn_set(100_deg, TURN_SPEED);
   chassis.pid_wait();
   setIntake(0);
-  chassis.pid_drive_set(-18_in, 35, true);
-  pros::delay(800);
+  chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-10_in, 35, true);
+  pros::delay(400);
   clamp1.extend();
   chassis.pid_wait();
-  setConveyor(127);
+  setIntake(127);
   pros::delay(500);
   setWallstake(0);
   chassis.pid_swing_set(ez::LEFT_SWING, 180_deg, SWING_SPEED, 55);
   pros::delay(700);
-  setConveyor(0);
+  setIntake(0);
   chassis.pid_wait();
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
@@ -331,13 +379,13 @@ void redrightelim(){
 //skills autons
 
 void skills(){
-  setConveyor(127);
+  setIntake(127);
   pros::delay(500);
   chassis.pid_drive_set(12_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
-  setConveyor(0);
+  setIntake(0);
   chassis.pid_drive_set(-15_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_drive_set(-10_in, 35, true);
@@ -349,7 +397,6 @@ void skills(){
   setIntake(127);
   chassis.pid_drive_set(25_in, DRIVE_SPEED, true);
   pros::delay(100);
-  setConveyor(127);
   chassis.pid_wait();
   chassis.pid_turn_set(60_deg, TURN_SPEED);
   chassis.pid_wait();
@@ -371,7 +418,7 @@ void skills(){
   chassis.pid_wait();
   chassis.pid_turn_set(-45_deg, TURN_SPEED);
   chassis.pid_wait();
-  setConveyor(0);
+  setIntake(0);
   chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   pros::delay(500);
@@ -387,7 +434,7 @@ void skills(){
   pros::delay(500);
   clamp1.extend();
   chassis.pid_wait();
-  setConveyor(127);
+  setIntake(127);
   chassis.pid_turn_set(15_deg, TURN_SPEED);
   chassis.pid_wait();
   chassis.pid_drive_set(25_in, DRIVE_SPEED, true);
@@ -412,7 +459,7 @@ void skills(){
   chassis.pid_wait();
   chassis.pid_turn_set(45_deg, TURN_SPEED);
   chassis.pid_wait();
-  setConveyor(0);
+  setIntake(0);
   chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   pros::delay(500);
@@ -432,10 +479,10 @@ void skills(){
   pros::delay(500);
   clamp1.extend();
   chassis.pid_wait();
-  setConveyor(127);
+  setIntake(127);
   chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
-  setConveyor(0);
+  setIntake(0);
   chassis.pid_drive_set(-25_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   chassis.pid_turn_set(-135_deg, TURN_SPEED);

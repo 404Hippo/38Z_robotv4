@@ -2,8 +2,7 @@
 
 //motors
 extern pros::Motor intake;
-extern pros::Motor conveyor;
-extern pros::Motor wallstake;
+extern pros::MotorGroup wallstake;
 
 //pneumatics
 extern pros::adi::Pneumatics clamp1;
