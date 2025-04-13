@@ -8,4 +8,8 @@ extern pros::MotorGroup wallstake;
 extern pros::adi::Pneumatics clamp1;
 extern pros::adi::Pneumatics doinker;
 
+//rotation sensor
 extern pros::Rotation rotationsensor;
+
+//color sensor
+extern pros::Optical colorsensor;

@@ -47,6 +47,29 @@ void wallstakeControl() {
 }
 
 
+//color sorting testing
+
+bool colorSortOn = false;
+
+void colorSort() {
+
+  if (colorSortOn) {
+    if (colorsensor.get_hue() > 160 && colorsensor.get_hue() < 250) {
+      setIntake(0);
+      pros::delay(300);
+      setIntake(127);
+    }
+    else if (colorsensor.get_hue() > 0 && colorsensor.get_hue() < 40) {
+      setIntake(0);
+      pros::delay(300);
+      setIntake(-127);
+    }
+
+    
+  }
+}
+
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -132,6 +155,14 @@ void initialize() {
   chassis.initialize();
   ez::as::initialize();
 
+
+  pros::Task colorTask([]{
+    while (true) {
+      colorSort();
+      pros::delay(10);
+    }
+  });
+
   pros::Task wallstakeTask([]{
     while (true) {
         wallstakeControl();
@@ -182,6 +213,9 @@ void autonomous() {
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);    // Set the current position, you can start at a specific position with this
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
   wallstakePID = false;
+  colorSortOn = true;
+
+
 
 
 

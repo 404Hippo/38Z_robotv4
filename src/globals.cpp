@@ -8,4 +8,8 @@ pros::MotorGroup wallstake({19, -18}, pros::v5::MotorGears::green, pros::v5::Mot
 pros::adi::Pneumatics clamp1('H', false);
 pros::adi::Pneumatics doinker('G', false);
 
+//rotation sensor
 pros::Rotation rotationsensor(20);
+
+//color sensor
+pros::Optical colorsensor(12);
