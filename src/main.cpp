@@ -46,28 +46,44 @@ void wallstakeControl() {
     }
 }
 
-
+/*
+int ticksPerRev = 2588;
+int tick;
+int prevTick;
+vector<int> hooksPositionSensed = {0, 0, 0};
+vector<int> hooksPositionEject = {0, 0, 0,}
 //color sorting testing
 
+*/
 bool colorSortOn = false;
+bool WrongColor;
 
 void colorSort() {
-
   if (colorSortOn) {
-    if (colorsensor.get_hue() > 160 && colorsensor.get_hue() < 250) {
-      setIntake(0);
-      pros::delay(300);
+    // red
+    if ( ColorSort == 1){
+      if (colorsensor.get_hue() < 40 && colorsensor.get_hue() > 5){
+        WrongColor = true;
+        }
+      }
+    // blue
+    if ( ColorSort == 2){
+      if (colorsensor.get_hue() < 240 && colorsensor.get_hue() > 170){
+        WrongColor = true;
+        }
+      }
+    // sort
+    if(WrongColor){
+      pros::delay(100);
       setIntake(127);
-    }
-    else if (colorsensor.get_hue() > 0 && colorsensor.get_hue() < 40) {
-      setIntake(0);
-      pros::delay(300);
+      pros::delay(100);
       setIntake(-127);
+      WrongColor = false;
     }
-
-    
+    pros::delay(ez::util::DELAY_TIME);
   }
 }
+
 
 
 /**
@@ -94,7 +110,7 @@ void initialize() {
   // Configure your chassis controls
   chassis.opcontrol_curve_buttons_toggle(true);   // Enables modifying the controller curve with buttons on the joysticks
   chassis.opcontrol_drive_activebrake_set(0.0);   // Sets the active brake kP. We recommend ~2.  0 will disable.
-  chassis.opcontrol_curve_default_set(0.0, 0.0);  // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)
+  chassis.opcontrol_curve_default_set(2, 0.0);  // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)
 
   // Set the drive to your own constants from autons.cpp!
   default_constants();
@@ -163,6 +179,7 @@ void initialize() {
     }
   });
 
+  
   pros::Task wallstakeTask([]{
     while (true) {
         wallstakeControl();
@@ -341,6 +358,7 @@ void ez_template_extras() {
  */
 
 void opcontrol() {
+  colorSortOn = false;
   // This is preference to what you like to drive on
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 

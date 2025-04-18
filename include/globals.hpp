@@ -13,3 +13,5 @@ extern pros::Rotation rotationsensor;
 
 //color sensor
 extern pros::Optical colorsensor;
+
+extern int ColorSort = 2;
