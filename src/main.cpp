@@ -46,44 +46,78 @@ void wallstakeControl() {
     }
 }
 
-/*
-int ticksPerRev = 2588;
-int tick;
-int prevTick;
-vector<int> hooksPositionSensed = {0, 0, 0};
-vector<int> hooksPositionEject = {0, 0, 0,}
-//color sorting testing
 
-*/
-bool colorSortOn = false;
-bool WrongColor;
+bool colorSortOn = false; // Flag to indicate if color sorting is active
+int ticksPerRev = 2588; // Number of ticks per revolution for the intake motor
+int tick; // Current tick position of the intake motor
+int prevTick; // Previous tick position of the intake motor
+vector<int> hooksPositionsSensor = {0,642,1279,1905}; // Positions of hooks for detecting rings
+vector<int> hooksPositionsEject = {320,920,1570,2220}; // Positions of hooks for ejecting rings
+vector<bool> ringToEject = {false,false,false,false}; // Flags to indicate if a ring needs to be ejected
 
-void colorSort() {
-  if (colorSortOn) {
-    // red
-    if ( ColorSort == 1){
-      if (colorsensor.get_hue() < 40 && colorsensor.get_hue() > 5){
-        WrongColor = true;
+// Blue color range: 180 - 240 (hue values)
+// Red color range: 330 - 30 (hue values)
+
+void colorSort(){
+  while(colorSortOn){
+
+    // Get the current tick position of the intake motor
+    tick = intake.get_position();
+    tick = tick; // Reverse the tick direction to make it go up as the intake moves forward
+    tick = fmod(tick, ticksPerRev); // Normalize tick to within one revolution
+
+    if(tick < 0) tick += ticksPerRev; // Ensure tick is positive
+    prevTick = tick; // Store the current tick as the previous tick
+
+    // Get the hue value from the color sensor
+    double colorValue = colorsensor.get_hue();
+
+    // Check if the detected color is blue
+    if(colorValue > 180 && colorValue < 270){
+      double smallestDiff = 700; // Initialize the smallest difference
+      int smallestIndex = 0; // Index of the closest hook position
+      for(int i = 0; i < hooksPositionsSensor.size(); i++){
+        // Calculate the difference between the current tick and the hook position
+        double diff = fabs(tick - hooksPositionsSensor[i]);
+        if(diff > 1600){ // Adjust for wrap-around if the difference is too large
+          diff -= ticksPerRev;
+          diff = -1;
         }
+
+        // Update the smallest difference and index if a closer hook is found
+        if(diff < smallestDiff){
+          smallestDiff = diff;
+          smallestIndex = i;
+        } 
       }
-    // blue
-    if ( ColorSort == 2){
-      if (colorsensor.get_hue() < 240 && colorsensor.get_hue() > 170){
-        WrongColor = true;
-        }
-      }
-    // sort
-    if(WrongColor){
-      pros::delay(100);
-      setIntake(127);
-      pros::delay(100);
-      setIntake(-127);
-      WrongColor = false;
+
+      // Mark the corresponding ring for ejection
+      ringToEject[smallestIndex] = true;
     }
-    pros::delay(ez::util::DELAY_TIME);
+
+    // Check each hook position for ejection
+    for(int i = 0; i < hooksPositionsEject.size(); i++){
+
+      // Predict the tick position slightly ahead
+      int predictTick = fmod(tick - 1000, ticksPerRev);
+
+      // Calculate the measured difference between the predicted tick and the hook position
+      double measuredDiff = fabs(predictTick - hooksPositionsEject[i]);
+      if(measuredDiff > 2300){ // Adjust for wrap-around if the difference is too large
+        measuredDiff -= ticksPerRev;
+        measuredDiff = -1;
+      }
+
+      // If the measured difference is within range and the ring is marked for ejection
+      if(measuredDiff < 1000 && ringToEject[i]){
+        intake.move_voltage(-12000); // Reverse the intake motor to eject the ring
+        pros::delay(200); // Wait for the ejection to complete
+        intake.move_voltage(12000); // Resume the intake motor
+        ringToEject[i] = false; // Reset the ejection flag for this ring
+      }
+    }
   }
 }
-
 
 
 /**
@@ -93,6 +127,7 @@ void colorSort() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+  pros::lcd::initialize();
   // Print our branding over your terminal :D
   ez::ez_template_print();
 
@@ -358,11 +393,12 @@ void ez_template_extras() {
  */
 
 void opcontrol() {
-  colorSortOn = false;
   // This is preference to what you like to drive on
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
   while (true) {
+    colorSortOn = true; //set false
+
     // Gives you some extras to make EZ-Template ezier
     ez_template_extras();
 
@@ -376,7 +412,6 @@ void opcontrol() {
     // Put more user control code here!
     // . . .
 
-    
     // control the intake and conveyor
     setIntake((master.get_digital(DIGITAL_R1) - master.get_digital(DIGITAL_R2)) * 127);
 

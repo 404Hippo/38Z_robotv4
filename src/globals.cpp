@@ -12,4 +12,4 @@ pros::adi::Pneumatics doinker('G', false);
 pros::Rotation rotationsensor(20);
 
 //color sensor
-pros::Optical colorsensor(12);
+pros::Optical colorsensor(17);

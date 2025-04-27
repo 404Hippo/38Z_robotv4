@@ -255,6 +255,55 @@ void blueright(){
 }
 
 void redleft(){
+  chassis.pid_drive_set(-17_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  setWallstake(0);
+  chassis.pid_drive_set(-10_in, 35, true);
+  pros::delay(600);
+  clamp1.extend();
+  chassis.pid_wait();
+  setIntake(127);
+  chassis.pid_turn_set(150_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_swing_set(ez::RIGHT_SWING, 90_deg, SWING_SPEED, 53);
+  chassis.pid_wait();
+  chassis.pid_drive_set(15_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_swing_set(ez::RIGHT_SWING, -180_deg, SWING_SPEED, 53);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(15_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(20_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(-110_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(42_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  doinker.extend();
+  pros::delay(500);
+  chassis.pid_drive_set(-40_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  doinker.retract();
+  chassis.pid_turn_set(-135_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(-110_deg, TURN_SPEED);
+  chassis.pid_wait();
+  setWallstake(127);
+  pros::delay(300);
+  setWallstake(0);
+  chassis.pid_drive_set(15_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+
+  
+
+}
+/*
+void redleft(){
   setWallstake(127);
   pros::delay(500);
   setWallstake(0);
@@ -294,11 +343,8 @@ void redleft(){
   chassis.pid_wait();
   chassis.pid_turn_set(-180_deg, TURN_SPEED);
   chassis.pid_wait();
-
-  
-
-
 }
+*/
 
 void redright(){
   chassis.pid_drive_set(40_in, DRIVE_SPEED, true);
