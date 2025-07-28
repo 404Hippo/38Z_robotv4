@@ -7,6 +7,7 @@ extern pros::MotorGroup wallstake;
 //pneumatics
 extern pros::adi::Pneumatics clamp1;
 extern pros::adi::Pneumatics doinker;
+extern pros::adi::Pneumatics doinker2;
 
 //rotation sensor
 extern pros::Rotation rotationsensor;

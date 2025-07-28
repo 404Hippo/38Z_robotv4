@@ -7,6 +7,7 @@ pros::MotorGroup wallstake({19, -18}, pros::v5::MotorGears::green, pros::v5::Mot
 //pneumatics
 pros::adi::Pneumatics clamp1('H', false);
 pros::adi::Pneumatics doinker('G', false);
+pros::adi::Pneumatics doinker2('F', false);
 
 //rotation sensor
 pros::Rotation rotationsensor(20);

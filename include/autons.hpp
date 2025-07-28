@@ -15,11 +15,14 @@ void blueright();
 void redleft();
 void redright();
 
-// elim autons
-void blueleftelim();
+void redrightalliance();
+
+void blueleftbar();
 void bluerightelim();
 void redleftelim();
-void redrightelim();
+void redrightbar();
+
+void bluerightnocross();
 
 // skills autons
 void skills();

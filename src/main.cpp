@@ -158,17 +158,19 @@ void initialize() {
   
 
   ez::as::auton_selector.autons_add({
-    Auton("blue AWP", blueAWP),
-    Auton("red AWP", redAWP),
-    Auton("blue left", blueleft),
-    Auton("blue right", blueright),
-    Auton("red left", redleft),
-    Auton("red right", redright),
-    Auton("blue left elim", blueleftelim),
-    Auton("blue right elim", bluerightelim),
-    Auton("red left elim", redleftelim),
-    Auton("red right elim", redrightelim),
-    Auton("skills", skills),
+    Auton("blue AWP, alliance stake, 3 top rings, 4 rings total, touch bar, 10 points", blueAWP),
+    Auton("red AWP, alliance stake, 3 top rings, 4 rings total, touch bar, 10 points", redAWP),
+    Auton("blue left, 1 top ring, 3 rings total, corner clear, finish on middle, 5 points", blueleft),
+    Auton("blue right, 1 top ring, 5 rings total, touch bar, 7 points", blueright),
+    Auton("red left, 1 top ring 5 rings total, touch bar, 7 points", redleft),
+    Auton("red right,  1 top ring, 3 rings total, corner clear, finish on middle, 5 points", redright),
+    Auton("blue left bar, 1 top ring, 4 rings total, touch bar, 6 points", blueleftbar),
+    Auton("blue right elim, 1 top ring, 6 rings total, 8 points", bluerightelim),
+    Auton("red left elim, 1 top ring, 6 rings total, 8 points", redleftelim),
+    Auton("red right bar, 1 top ring, 4 rings total, touch bar, 6 points", redrightbar),
+    Auton("red right alliance, 2 top rings, 4 rings total, alliance stake, 8 points", redrightalliance),
+    Auton("blue right no cross line, 2 top rings, 4 rings total, alliance stake, touch bar, 7 points", bluerightnocross),
+    Auton("skills, 4 top rings, 15 rings total, 4 corners, 43 points", skills),
 
     /*
     Auton("drive 48", drive_48),
@@ -413,6 +415,7 @@ void opcontrol() {
     // . . .
 
     // control the intake and conveyor
+
     setIntake((master.get_digital(DIGITAL_R1) - master.get_digital(DIGITAL_R2)) * 127);
 
     // control the wallstake
